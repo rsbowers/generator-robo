@@ -1,0 +1,5 @@
+{{#compare cta '&&' cta.text}}
+    <a{{#if cta.url}} href="{{cta.url}}"{{/if}} class="cta{{#if cta.class}} {{cta.class}}{{/if}}" {{> data-attr cta}}>
+        {{cta.text}}
+    </a>
+{{/compare}}

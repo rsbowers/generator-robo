@@ -1,0 +1,3 @@
+{{#compare img '&&' img.src}}
+    <img src="{{img.src}}"{{#if img.class}} class="{{img.class}}"{{/if}} alt="{{#if img.alt}}{{img.alt}}{{else}}FPO{{/if}}"{{> data-attr img}}>
+{{/compare}}

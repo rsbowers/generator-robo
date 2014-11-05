@@ -1,0 +1,19 @@
+{{#if article.items}}
+    <article {{#if article.class}} class="{{article.class}}"{{/if}} {{> data-attr article}}>
+        {{#each article.items}}
+            {{> img }}
+            {{> text }}
+            {{> cta }}
+            {{> accordion }}
+            {{> carousel }}
+            {{> eyebrow }}
+            {{> icon }}
+            {{> link }}
+            {{> element }}
+            {{> list }}
+            {{> nav }}
+            {{> tabs }}
+            {{> video }}
+        {{/each}}
+    </article>
+{{/if}}

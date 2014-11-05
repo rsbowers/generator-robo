@@ -1,0 +1,19 @@
+{{#compare element '&&' element.tag}}
+    <{{element.tag}}{{#if element.class}} class="{{element.class}}"{{/if}} {{> data-attr element}}>
+        {{#each element.items}}
+            {{> img }}
+            {{> text }}
+            {{> element }}
+            {{> accordion }}
+            {{> carousel }}
+            {{> eyebrow }}
+            {{> icon }}
+            {{> list }}
+            {{> link }}
+            {{> nav }}
+            {{> tabs }}
+            {{> video }}
+            {{> cta }}
+        {{/each}}
+    </{{element.tag}}>
+{{/compare}}

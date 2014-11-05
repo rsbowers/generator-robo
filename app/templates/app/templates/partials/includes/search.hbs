@@ -1,0 +1,73 @@
+<section class="module-search">
+    <form class="search-form">
+        <fieldset>
+            <a class="search-filter">
+                Corning
+            </a>
+            <input type="text" class="search-input" placeholder="Type to search" data-mobile-placeholder="Type to search" data-pc-placeholder="Type to search a SKU, product, or ask a question" maxlength="70">
+            <button type="submit">
+                <i class="fa-search"></i>
+            </button>
+            <a class="close-search">
+                <i class="fa-times"></i>
+            </a>
+        </fieldset>
+    </form>
+
+    <div class="search-response">
+        <nav class="tabs">
+            <div class="container">
+                <ul>
+                    {{#each search.resultheadbar}}
+                        <li class="category-label">{{this.name}}</li>
+                        {{#each this.cat}}
+                            <li class="{{#if this.active}}{{this.active}}{{/if}}">
+                                <a href="{{this.url}}">{{this.type}}</a>
+                            </li>
+                        {{/each}}
+                    {{/each}}
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="filters">
+                {{> sliding-reveal search.slidingReveal}}
+            </div>
+
+            <div class="search-sort">
+                {{#if this.results}}
+            		<span class="results_heading">
+            			{{#each this.results}}
+            				{{this.fstring}} {{this.count}} {{this.lstring}}
+            			{{/each}}
+            		</span>
+            	{{/if}}
+
+            	{{#if this.select}}
+            		<span class="sort_options">
+            			<span class="horzheading">{{this.select.label}} :</span>
+            			<span class="select_options">
+            				<select class="form-control">
+            						{{#each this.options}}
+            							<option value="{{this.value}}">
+            								{{this.name}}
+            							</option>
+            						{{/each}}
+            				</select>
+            			</span>
+            		</span>
+            	{{/if}}
+            </div>
+
+            <div class="search-results">
+                {{#each search.search_result_a}}
+                    {{> search-result }}
+                {{/each}}
+            </div>
+
+            <div class="search_pagination">
+            </div>
+        </div>
+    </div>
+</section>

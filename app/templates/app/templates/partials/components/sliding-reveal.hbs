@@ -1,0 +1,24 @@
+{{#if sliding-reveal.content}}
+<div class="sliding-reveal{{#if sliding-reveal.class}} {{sliding-reveal.class}}{{/if}}">
+    <div class="reveal-content">
+        {{> element sliding-reveal.content}}
+        {{> text sliding-reveal.content}}
+    </div>
+    <a class="toggle">
+        {{#if sliding-reveal.label}}
+        <span class="toggle-label">{{sliding-reveal.label}}</span>
+        {{/if}}
+        <div class="shadow-wrap">
+            <div class="shadow"></div>
+            <div class="fade-out">
+                <div class="fade-to-white left"></div>
+                <div class="fade-to-white right"></div>
+            </div>
+
+            <span class="toggle-cta">
+                <i class="fa fa-caret-down"></i>
+            </span>
+        </div>
+    </a>
+</div>
+{{/if}}

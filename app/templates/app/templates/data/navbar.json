@@ -1,0 +1,70 @@
+{
+	"navitems" : {
+		"products" : {
+			"name" : "Products",
+			"link" : "",
+			"subnav":[
+				{
+					"class":"",
+					"link":{
+						"url": "/advanced-glass.html",
+						"text": "Advanced<br>Glass"
+					}
+				},
+				{
+					"class":"",
+					"link":{
+						"url": "#",
+						"text": "Advanced<br>Optics"
+					}
+				},
+				{
+					"class":"",
+					"link":{
+						"url": "#",
+						"text": "Communication<br>Networks"
+					}
+				},
+				{
+					"class":"",
+					"link":{
+						"url": "#",
+						"text": "Environmental<br>Products"
+					}
+				},
+				{
+					"class":"",
+					"link":{
+						"url": "#",
+						"text": "Scientific<br>Products"
+					}
+				},
+				{
+					"class":"",
+					"link":{
+						"url": "#",
+						"text": "Life<br>Sciences"
+					}
+				}
+			]
+		},
+
+		"industries" : {
+			"name" : "Industries",
+			"link" : "#"
+		},
+
+		"innovation" : {
+			"name" : "Innovation",
+			"link" : "#"
+		},
+		"people" : {
+			"name" : "People",
+			"link" : "#"
+		},
+		"about_us" : {
+			"name" : "About Us",
+			"link" : ""
+		}
+	}
+}

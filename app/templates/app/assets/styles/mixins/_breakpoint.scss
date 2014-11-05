@@ -1,0 +1,42 @@
+// ----------------------------------
+// BREAKPOINTS
+// ----------------------------------
+
+@mixin breakpoint($point, $value: 0) {
+	@if $point == mobile {
+		@media (min-width: 0px) and (max-width: 767px){ @content; }
+	}
+
+	@else if $point == mobile-horizontal {
+		@media (max-width: 480px) { @content; }
+	}
+
+	@else if $point == tablet {
+		@media (min-width: 768px) and (max-width: 1024px) { @content; }
+	}
+
+	@else if $point == tablet-horizontal {
+		@media (max-width: 1024px) { @content; }
+	}
+
+	@else if $point == desktop {
+		@media (min-width: 992px) { @content; }
+		.old-ie & {
+			@content;
+		}
+	}
+
+	@else if $point == desktop-wide {
+		@media (min-width: 1500px) { @content; }
+	}
+
+	@else {
+		@media ($point: $value) { @content; }
+	}
+}
+
+@mixin between-breakpoints($min, $max) {
+	@media (min-width: $min) and (max-width: $max) {
+		@content;
+	}
+}

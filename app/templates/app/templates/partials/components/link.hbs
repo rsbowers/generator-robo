@@ -1,0 +1,5 @@
+{{#compare link.url '||' link.text}}
+<a{{#if link.url}} href="{{link.url}}"{{/if}}{{#if link.class}} class="{{link.class}}"{{/if}}>
+    {{{link.text}}}
+</a>
+{{/compare}}

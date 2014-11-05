@@ -1,0 +1,9 @@
+{{#compare data.length '>' 1}}
+    {{#eachIndex data}}
+        {{#compare item.attr '&&' item.value}}
+         data-{{item.attr}}="{{item.value}}"
+        {{/compare}}
+    {{/eachIndex}}
+{{else}}
+    {{#compare data.attr '&&' data.value}} data-{{data.attr}}="{{data.value}}"{{/compare}}
+{{/compare}}

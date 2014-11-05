@@ -1,0 +1,13 @@
+{{#compare img '&&' img.src}}
+  {{#if img.src-small}}
+    <picture>
+      <!--[if IE 9]><video style="display: none;"><![endif]-->
+      {{#if img.src-large}}<source srcset="{{img.src-large}}, {{img.src-large}} 2x" media="(min-width: 1000px)">{{/if}}
+      <source srcset="{{img.src}}, {{img.src}} 2x" media="(min-width: 600px)">
+      <!--[if IE 9]></video><![endif]-->
+      <img srcset="{{img.src-small}}"{{#if img.class}} class="{{img.class}}"{{/if}} alt="{{#if img.alt}}{{img.alt}}{{else}}FPO{{/if}}"{{> data-attr img}}>
+    </picture>
+  {{else}}
+    <img src="{{img.src}}"{{#if img.class}} class="{{img.class}}"{{/if}} alt="{{#if img.alt}}{{img.alt}}{{else}}FPO{{/if}}"{{> data-attr img}}>
+  {{/if}}
+{{/compare}}

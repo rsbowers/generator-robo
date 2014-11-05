@@ -1,0 +1,37 @@
+{{#compare carousel '&&' carousel.items}}
+    <div class="carousel{{#if carousel.data.value}} {{carousel.data.value}}{{/if}}{{#if carousel.class}} {{carousel.class}}{{/if}}{{#if carousel.alt_class}} {{carousel.alt_class}}{{/if}}"{{> data-attr carousel}}>
+        {{#each carousel.items}}
+            <div class="item{{#if class}} {{class}}{{/if}}">
+                {{#compare ../carousel.class '==' 'single'}}
+                    {{> img }}
+                {{/compare}}
+
+                <div class="inner{{#compare ../this.carousel.class '==' 'single'}} container{{/compare}}">
+                    <div>
+                        {{#compare ../carousel.class '==' 'multiple'}}
+                            {{#compare ../carousel.data.value '!=' 'timeline'}}
+                                <div class="item-image">
+                                    <a>{{> img-lazy }}</a>
+                                </div>
+                            {{/compare}}
+                        {{/compare}}
+
+                        <div class="item-text">
+                            {{> heading }}
+                            {{> text }}
+                            {{> cta }}
+                        </div>
+
+                        {{#compare ../carousel.class '==' 'multiple'}}
+                            {{#compare ../carousel.data-value '==' 'timeline'}}
+                                <div class="item-image">
+                                    {{> img-lazy }}
+                                </div>
+                            {{/compare}}
+                        {{/compare}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+{{/compare}}

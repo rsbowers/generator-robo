@@ -1,0 +1,15 @@
+{{#if text}}
+    {{#compare text 'typeof' 'object'}}
+        {{#each text}}
+            {{#if tag}}
+                <{{tag}}{{#if class}} class="{{class}}"{{/if}}{{> data-attr }}>
+                    {{#if url}}<a {{#if link-class}}class="{{link-class}}"{{/if}}>{{/if}}{{{copy}}}{{#if url}}</a>{{/if}}
+                </{{tag}}>
+            {{else}}
+                {{{copy}}}
+            {{/if}}
+        {{/each}}
+    {{else}}
+        {{text}}
+    {{/compare}}
+{{/if}}

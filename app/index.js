@@ -33,8 +33,13 @@ var RoboGenerator = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
-      this.dest.mkdir('app');
-      this.dest.mkdir('app/templates');
+      // this.dest.mkdir('app');
+      // this.dest.mkdir('app/assets');
+      // this.dest.mkdir('app/assets/f/onts');
+      // this.dest.mkdir('app/assets/images');
+      // this.dest.mkdir('app/assets/scripts');
+      // this.dest.mkdir('app/assets/styles');
+      this.directory('app');
 
       this.src.copy('_package.json', 'package.json');
       this.src.copy('_bower.json', 'bower.json');

@@ -1,0 +1,42 @@
+//*---------------------------------------
+// LAYOUT
+//*---------------------------------------
+
+
+html, body{
+	min-height:100%;
+	min-height:100vh;
+	height:auto;
+	width:100%;
+	-webkit-backface-visibility: hidden !important;
+	@include transform(translate3d(0,0,0))
+}
+
+html{
+	&.no-touch.resizing{
+		.page, .navs, header, form, fieldset{
+			@include killtransitions;
+		}
+	}
+
+	&.disable-scroll{
+		overflow:hidden;
+		position:fixed;
+		top:0;
+		bottom:0;
+		right:0;
+		left:0;
+	}
+}
+
+main {
+	position:relative;
+
+	.container {
+		max-width:1170px;
+		width:auto;
+		margin:0 auto;
+		float:none;
+		@include clearfix;
+	}
+}

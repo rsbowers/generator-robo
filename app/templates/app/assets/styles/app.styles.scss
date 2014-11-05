@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+//*================================================
+// Base Variables
+
+@import 'base';
+
+//*================================================
+// Globals
+
+    /*!==:cms:global:main:==!*/
+
+    //Mixins
+    @import
+        'mixins/breakpoint',
+        'mixins/animate',
+        'mixins/vertical-align',
+        'mixins/flexbox',
+        'mixins/font-size',
+        'mixins/transitions-transforms';
+
+    //Vendor Libs
+    @import
+        'lib/animations';
+
+    //Globals
+    @import
+        'globals/fonts',
+        'globals/layout',
+        'globals/typography';
+
+    //Global Components
+    // @include ... ;
+
+    //Includes
+    // @include ... ;
+
+
+//*================================================
+// CMS Required Modules
+
+    /*!==:cms:module:navigation:==!*/
+    @import 'modules/navigation';
+
+    /*!==:cms:module:footer:==!*/
+    @import 'modules/footer';
+
+    /*!==:cms:module:my-module-name:==!*/
+    @import 'modules/my-module-name';
+
+    //*---------------------------------------
+    // Legacy Fallbacks
+
+        /*!==:cms:global:fallbacks:==!*/
+        @import 'globals/fallbacks';

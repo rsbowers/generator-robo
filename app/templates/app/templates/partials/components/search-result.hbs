@@ -1,0 +1,67 @@
+<article class="result">
+	<div class="col-sm-2 img-block">
+		{{#each this.productImage}}
+			<img src="{{this.img}}" alt="{{this.alttext}}"/>
+		{{/each}}
+	</div>
+	<div class="col-sm-10">
+	{{#if this.bookmarkopt}}
+		{{#each this.bookmarkopt}}
+			<span class="bookmrkimg">
+				<a href="{{this.url}}">
+					<img src="{{this.img}}" alt="{{this.alttext}}" />
+					{{#if this.text}}
+					<span class="hover">{{this.text}}</span>
+					{{/if}}
+				</a>
+			</span>
+		{{/each}}
+	{{/if}}
+	{{#if this.title}}
+		<div class="title">{{{this.title}}}</div>
+	{{/if}}
+	{{#if this.type}}
+		<div class="type">(
+			{{#each this.type}}
+				{{#if @last}}
+					{{this.name}}
+				{{else}}
+					{{this.name}}/
+				{{/if}}
+
+			{{/each}}
+			)
+		</div>
+	{{/if}}
+	{{#if this.part}}
+		<div class="parts">
+			{{#each this.part}}
+				<span class="name">{{this.name}} : </span>
+				<span class="barcode">{{this.code}}</span>
+			{{/each}}
+		</div>
+	{{/if}}
+	{{#if this.unit}}
+		<div class="unit">
+			{{#each this.unit}}
+				<span class="name">{{this.name}} : </span>
+				<span class="total">{{this.total}} / </span>
+				<span class="current">{{this.current}}</span>
+			{{/each}}
+		</div>
+	{{/if}}
+	{{#if this.description}}
+		<div class="description">
+			{{this.description}}
+		</div>
+	{{/if}}
+	{{#if this.link}}
+		<div class="view_section">
+			{{#each this.link}}
+				<a href="{{this.url}}">{{this.name}}</a>
+			{{/each}}
+		</div>
+	{{/if}}
+
+	</div>
+</article>
