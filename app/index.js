@@ -6,6 +6,9 @@ var yosay = require('yosay');
 
 var RoboGenerator = yeoman.generators.Base.extend({
   initializing: function () {
+
+    this.configs = '';
+
     this.pkg = require('../package.json');
   },
 
@@ -33,12 +36,6 @@ var RoboGenerator = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
-      // this.dest.mkdir('app');
-      // this.dest.mkdir('app/assets');
-      // this.dest.mkdir('app/assets/f/onts');
-      // this.dest.mkdir('app/assets/images');
-      // this.dest.mkdir('app/assets/scripts');
-      // this.dest.mkdir('app/assets/styles');
       this.directory('app');
 
       this.src.copy('_package.json', 'package.json');
@@ -48,6 +45,18 @@ var RoboGenerator = yeoman.generators.Base.extend({
     projectfiles: function () {
       this.src.copy('editorconfig', '.editorconfig');
       this.src.copy('jshintrc', '.jshintrc');
+    },
+
+    gruntfile: function () {
+      this.src.copy('Gruntfile.js', 'Gruntfile.js');
+    },
+
+    tasks: function () {
+      this.directory('tasks');
+    },
+
+    tmp: function () {
+      this.mkdir('tmp');
     }
   },
 

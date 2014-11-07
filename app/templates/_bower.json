@@ -1,6 +1,10 @@
 {
   "name": "package",
   "version": "0.0.0",
-  "dependencies": {}
+  "dependencies": {
+    "jquery": "~1.11.1",
+    "modernizr": "~2.8.3",
+    "picturefill": "~2.1.0",
+    "slick-carousel": "~1.3.7"
+  }
 }
-
