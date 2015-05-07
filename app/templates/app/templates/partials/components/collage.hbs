@@ -1,9 +1,0 @@
-{{#if collage}}
-    <div class="collage{{#compare collage.class '==' 'right'}} right{{/compare}}" {{> data-attr collage}}>
-        {{#eachIndex collage.items}}
-            <div class="collage-item{{#if item.class}} {{item.class}}{{/if}}" {{> data-attr item}}>
-                {{> img item}}
-            </div>
-        {{/eachIndex}}
-    </div>
-{{/if}}
