@@ -120,10 +120,12 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('editorconfig', '.editorconfig');
   },
 
+  /*
   mainStylesheet: function () {
     var css = 'main.' + (this.includeSass ? 's' : '') + 'css';
     this.template(css, 'app/styles/' + css);
   },
+  */
 
   writeHead: function () {
     this.headFile = this.engine(
@@ -147,6 +149,7 @@ module.exports = yeoman.generators.Base.extend({
     this.write('app/templates/partials/global/html_head.hbs', this.headFile);
     this.write('app/templates/partials/global/html_tail.hbs', this.tailFile);
     this.copy('main.js', 'app/scripts/main.js');
+    this.template('main.scss', 'app/styles/app.main.scss');
   },
 
   install: function () {

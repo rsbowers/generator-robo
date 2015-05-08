@@ -1,0 +1,19 @@
+/* =======================
+   footer
+   ======================= */
+
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
