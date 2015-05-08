@@ -42,9 +42,13 @@ module.exports = function (grunt) {
         files: ['<%%= config.app %>/scripts/{,*/}*.js'],
         tasks: ['jshint']
       },
-      hbs: {
-        files: ['<%%= config.app %>/templates/{,*/}*.hbs','<%%= config.app %>/templates/data/{,*/}*.json'],
-        tasks: ['assemble']
+      handlebars: {
+        files: ['<%%= config.app %>/**/*.hbs'],
+        tasks: ['assemble','wiredep']
+      },
+      data: {
+        files: ['<%%= config.app %>/templates/data/{,*/}*.json'],
+        tasks: ['assemble','wiredep']
       },
       jstest: {
         files: ['test/spec/{,*/}*.js'],

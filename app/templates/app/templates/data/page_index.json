@@ -7,9 +7,9 @@
     "title": "'Allo, Robo!",
     "subtitle": "Always a pleasure scaffolding your apps...",
     "cta": {
-      "cta-text": "Splendid!",
-      "cta-url": "#",
-      "cta-class": "btn btn-lg btn-success"
+      "cta_text": "Splendid!",
+      "cta_url": "#",
+      "cta_class": "btn btn-lg btn-success"
     }
   },
   "teaser": {

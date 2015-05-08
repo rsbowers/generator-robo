@@ -149,7 +149,7 @@ module.exports = yeoman.generators.Base.extend({
     this.write('app/templates/partials/global/html_head.hbs', this.headFile);
     this.write('app/templates/partials/global/html_tail.hbs', this.tailFile);
     this.copy('main.js', 'app/scripts/main.js');
-    this.template('main.scss', 'app/styles/app.main.scss');
+    this.template('main.scss', 'app/styles/main.scss');
   },
 
   install: function () {
