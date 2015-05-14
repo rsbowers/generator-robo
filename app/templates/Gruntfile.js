@@ -17,13 +17,17 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  // project specific custom export for AdobeCQ integration
+  require('./tasks/cms')(grunt);
+
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
   // Configurable paths
   var config = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    tmp: '.tmp'
   };
 
   // Define the configuration for all the tasks
@@ -40,15 +44,24 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['jshint']
+        //tasks: ['jshint'],
+        options: {
+          livereload: true
+        }
       },
       handlebars: {
         files: ['<%%= config.app %>/**/*.hbs'],
-        tasks: ['assemble','wiredep']
+        tasks: ['assemble','wiredep'],
+        options: {
+          livereload: true
+        }
       },
       data: {
         files: ['<%%= config.app %>/templates/data/{,*/}*.json'],
-        tasks: ['assemble','wiredep']
+        tasks: ['assemble','wiredep'],
+        options: {
+          livereload: true
+        }
       },
       jstest: {
         files: ['test/spec/{,*/}*.js'],
@@ -75,14 +88,14 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           files: [
-            '<%%= config.app %>/{,*/}*.html',
-            '.tmp/styles/{,*/}*.css',
+            '<%%= config.tmp %>/{,*/}*.html',
+            '<%%= config.tmp %>/styles/{,*/}*.css',
             '<%%= config.app %>/images/{,*/}*',
             '<%%= config.app %>/scripts/{,*/}*.js'
           ],
           port: 9000,
           server: {
-            baseDir: ['.tmp', config.app],
+            baseDir: ['<%%= config.tmp %>', config.app],
             routes: {
               '/bower_components': './bower_components'
             }
@@ -96,7 +109,7 @@ module.exports = function (grunt) {
           logLevel: 'silent',
           host: 'localhost',
           server: {
-            baseDir: ['.tmp', './test', config.app],
+            baseDir: ['<%%= config.tmp %>', './test', config.app],
             routes: {
               '/bower_components': './bower_components'
             }
@@ -117,13 +130,13 @@ module.exports = function (grunt) {
         files: [{
           dot: true,
           src: [
-            '.tmp',
+            '<%%= config.tmp %>',
             '<%%= config.dist %>/*',
             '!<%%= config.dist %>/.git*'
           ]
         }]
       },
-      server: '.tmp'
+      server: '<%%= config.tmp %>'
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -157,22 +170,19 @@ module.exports = function (grunt) {
           specs: 'test/spec/{,*/}*.js'
         }
       }
-    },<% } %><% if (includeSass) { %>
+    },<% } %>
 
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
-      options: {<% if (includeLibSass) { %>
-        sourceMap: true,
-        includePaths: ['bower_components']
-        <% } else { %>
+      options: {
         loadPath: 'bower_components'
-      <% } %>},
+      },
       dist: {
         files: [{
           expand: true,
           cwd: '<%%= config.app %>/styles',
           src: ['*.{scss,sass}'],
-          dest: '.tmp/styles',
+          dest: '<%%= config.tmp %>/styles',
           ext: '.css'
         }]
       },
@@ -181,27 +191,23 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%%= config.app %>/styles',
           src: ['*.{scss,sass}'],
-          dest: '.tmp/styles',
+          dest: '<%%= config.tmp %>/styles',
           ext: '.css'
         }]
       }
-    },<% } %>
+    },
 
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
-        browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']<% if (includeSass) { %>,
-        map: {
-          prev: '.tmp/styles/'
-        }
-        <% } %>
+        browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']
       },
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/styles/',
+          cwd: '<%%= config.tmp %>/styles/',
           src: '{,*/}*.css',
-          dest: '.tmp/styles/'
+          dest: '<%%= config.tmp %>/styles/'
         }]
       }
     },
@@ -210,26 +216,31 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         ignorePath: /^<%= config.app %>\/|\.\.\//,
-        src: ['<%%= config.app %>/index.html']<% if (includeBootstrap) { %>,<% if (includeSass) { %>
-        exclude: ['bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js']<% } else { %>
-        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']<% } } %>
-      }<% if (includeSass) { %>,
+        src: ['<%%= config.tmp %>/index.html']<% if (includeBootstrap) { %>,
+        exclude: ['bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js']<% } %>
+      },
       sass: {
         src: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
-      }<% } %>
+      }
     },
 
-    // Renames files for browser caching purposes
-    filerev: {
+    // Compile handlebar partials into static html
+    assemble: {
+      options: {
+        flatten: true,
+          expand: true,
+          layout: '<%%= config.app %>/templates/layouts/default.hbs',
+          partials: ['<%%= config.app %>/templates/partials/**/*.hbs'],
+          helpers: ['<%%= config.app %>/templates/helpers/*.js'],
+          data: '<%%= config.app %>/templates/data/*.json'
+      },
       dist: {
-        src: [
-          '<%%= config.dist %>/scripts/{,*/}*.js',
-          '<%%= config.dist %>/styles/{,*/}*.css',
-          '<%%= config.dist %>/images/{,*/}*.*',
-          '<%%= config.dist %>/styles/fonts/{,*/}*.*',
-          '<%%= config.dist %>/*.{ico,png}'
-        ]
+        files: {
+          '<%%= config.tmp %>/': [
+            '<%%= config.app %>/templates/pages/*.hbs'
+          ]
+        }
       }
     },
 
@@ -240,7 +251,7 @@ module.exports = function (grunt) {
       options: {
         dest: '<%%= config.dist %>'
       },
-      html: '<%%= config.app %>/index.html'
+      html: '<%%= config.tmp %>/index.html'
     },
 
     // Performs rewrites based on rev and the useminPrepare configuration
@@ -252,7 +263,7 @@ module.exports = function (grunt) {
           '<%%= config.dist %>/styles'
         ]
       },
-      html: ['<%%= config.dist %>/{,*/}*.html'],
+      html: ['<%%= config.dist %>/{,*/}*.html', '<%%= config.tmp %>/{,*/}*.html'],
       css: ['<%%= config.dist %>/styles/{,*/}*.css']
     },
 
@@ -295,7 +306,7 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%%= config.dist %>',
+          cwd: '<%%= config.tmp %>',
           src: '{,*/}*.html',
           dest: '<%%= config.dist %>'
         }]
@@ -342,79 +353,87 @@ module.exports = function (grunt) {
             '{,*/}*.html',
             'styles/fonts/{,*/}*.*'
           ]
-        }<% if (includeBootstrap) { %>, {
-          expand: true,
-          dot: true,
-          cwd: '<% if (includeSass) {
-              %>.<%
-            } else {
-              %>bower_components/bootstrap/dist<%
-            } %>',
-          src: '<% if (includeSass) {
-              %>bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*<%
-            } else {
-              %>fonts/*<%
-            } %>',
-          dest: '<%%= config.dist %>'
-        }<% } %>]
-      }<% if (!includeSass) { %>,
+        }]
+      },
       styles: {
         expand: true,
         dot: true,
         cwd: '<%%= config.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      }<% } %>
-    },<% if (includeModernizr) { %>
+      }
+    },
 
     // Generates a custom Modernizr build that includes only the tests you
     // reference in your app
     modernizr: {
       dist: {
         devFile: 'bower_components/modernizr/modernizr.js',
-        outputFile: '<%%= config.dist %>/scripts/vendor/modernizr.js',
+        outputFile: '<%%= config.dist %>/scripts/modernizr.js',
         files: {
           src: [
             '<%%= config.dist %>/scripts/{,*/}*.js',
-            '<%%= config.dist %>/styles/{,*/}*.css',
-            '!<%%= config.dist %>/scripts/vendor/*'
+            '<%%= config.dist %>/styles/{,*/}*.css'
           ]
         },
         uglify: true
       }
-    },<% } %>
+    },
 
     // Run some tasks in parallel to speed up build process
     concurrent: {
-      server: [<% if (includeSass) { %>
-        'sass:server'<% } else { %>
-        'copy:styles'<% } %>
+      server: [
+        'sass:server',
+        'copy:styles'
       ],
-      test: [<% if (!includeSass) { %>
-        'copy:styles'<% } %>
+      test: [
+        'copy:styles'
       ],
-      dist: [<% if (includeSass) { %>
-        'sass',<% } else { %>
-        'copy:styles',<% } %>
+      dist: [
+        'sass',
+        'copy:styles',
         'imagemin',
         'svgmin'
       ]
     },
 
-    // Compile handlebar partials into static html
-    assemble: {
-      options: {
-        flatten: true,
-          layout: '<%%= config.app %>/templates/layouts/default.hbs',
-          partials: ['<%%= config.app %>/templates/partials/**/*.hbs'],
-          helpers: ['<%%= config.app %>/templates/helpers/*.js'],
-          data: '<%%= config.app %>/templates/data/*.json'
-      },
-      pages: {
-        files: {
-          '<%%= config.app %>/': [
-            '<%%= config.app %>/templates/pages/{,*/}*.hbs'
-          ]
+    cms: {
+      build: {
+        dist: "<%%= config.dist %>",
+          dest: "<%%= config.dist %>/cms",
+          templates: "<%%= config.app %>/templates",
+          app: "<%%= config.tmp %>",
+          mainCSS: "main.css",
+          mainJS: "main.js",
+          components: {
+          dirs: {
+            markup: '<%%= config.app %>/templates/partials/components/',
+              scripts: '<%%= config.app %>/scripts/'
+          },
+          layout: '<%%= config.app %>/templates/layouts/cms.hbs',
+          preview: '<%%= config.app %>/templates/layouts/cms-preview.hbs',
+          data: {
+            "jumbotron": "page_index.jumbotron",
+            "teaser": "page_index.teaser"
+          }
+        },
+        globals: {
+          scss: {
+            dir: [
+              '<%%= config.app %>/styles/'
+            ],
+              styles: [ //CHECK
+              '<%%= config.app %>/styles/'
+            ]
+          },
+          scripts: {
+            concat: {
+              vendor: "<%%= config.tmp %>/concat/scripts/vendor.js",
+                main: "<%%= config.tmp %>/concat/scripts/main.js"
+            }
+          },
+          images: '<%%= config.app %>/images/',
+          fonts: '<%%= config.app %>/fonts/'
         }
       }
     }
@@ -469,11 +488,11 @@ module.exports = function (grunt) {
     'concat',
     'cssmin',
     'uglify',
-    'copy:dist',<% if (includeModernizr) { %>
-    'modernizr',<% } %>
-    'filerev',
+    'copy:dist',
+    'modernizr',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'cms'
   ]);
 
   grunt.registerTask('default', [

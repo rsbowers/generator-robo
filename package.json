@@ -1,26 +1,16 @@
 {
-  "name": "generator-webapp",
-  "version": "0.5.1",
+  "name": "generator-robo",
+  "version": "0.1.1",
   "description": "Scaffold out a front-end web app",
   "license": "BSD",
-  "repository": "yeoman/generator-webapp",
-  "author": "Yeoman",
+  "repository": "rsbowers/generator-robo",
+  "author": "Rob Bowers",
   "main": "app/index.js",
   "scripts": {
     "test": "mocha --reporter spec"
   },
   "files": [
     "app"
-  ],
-  "keywords": [
-    "yeoman-generator",
-    "web",
-    "app",
-    "front-end",
-    "h5bp",
-    "modernizr",
-    "jquery",
-    "grunt"
   ],
   "dependencies": {
     "chalk": "^1.0.0",

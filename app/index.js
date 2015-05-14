@@ -37,26 +37,7 @@ module.exports = yeoman.generators.Base.extend({
         name: 'Bootstrap',
         value: 'includeBootstrap',
         checked: true
-      },{
-        name: 'Sass',
-        value: 'includeSass',
-        checked: false
-      },{
-        name: 'Modernizr',
-        value: 'includeModernizr',
-        checked: false
       }]
-    }, {
-      when: function (answers) {
-        return answers && answers.features &&
-          answers.features.indexOf('includeSass') !== -1;
-      },
-      type: 'confirm',
-      name: 'libsass',
-      value: 'includeLibSass',
-      message: 'Would you like to use libsass? Read up more at \n' +
-        chalk.green('https://github.com/andrew/node-sass#node-sass'),
-      default: false
     }];
 
     this.prompt(prompts, function (answers) {
@@ -66,12 +47,7 @@ module.exports = yeoman.generators.Base.extend({
         return features && features.indexOf(feat) !== -1;
       }
 
-      this.includeSass = hasFeature('includeSass');
       this.includeBootstrap = hasFeature('includeBootstrap');
-      this.includeModernizr = hasFeature('includeModernizr');
-
-      this.includeLibSass = answers.libsass;
-      this.includeRubySass = !answers.libsass;
 
       done();
     }.bind(this));
@@ -94,19 +70,18 @@ module.exports = yeoman.generators.Base.extend({
     var bower = {
       name: this._.slugify(this.appname),
       private: true,
-      dependencies: {}
+      dependencies: {},
+      devDependencies: {}
     };
 
     if (this.includeBootstrap) {
-      var bs = 'bootstrap' + (this.includeSass ? '-sass-official' : '');
+      var bs = 'bootstrap-sass-official';
       bower.dependencies[bs] = '~3.3.0';
-    } else {
-      bower.dependencies.jquery = '~1.11.1';
     }
 
-    if (this.includeModernizr) {
-      bower.dependencies.modernizr = '~2.8.2';
-    }
+    bower.dependencies.jquery = '~1.11.1';
+
+    bower.devDependencies.modernizr = '~2.8.2';
 
     this.copy('bowerrc', '.bowerrc');
     this.write('bower.json', JSON.stringify(bower, null, 2));
@@ -122,32 +97,25 @@ module.exports = yeoman.generators.Base.extend({
 
   /*
   mainStylesheet: function () {
-    var css = 'main.' + (this.includeSass ? 's' : '') + 'css';
+    var css = 'main.scss';
     this.template(css, 'app/styles/' + css);
   },
   */
 
   writeHead: function () {
     this.headFile = this.engine(
-      this.readFileAsString(join(this.sourceRoot(), 'html_head.hbs')),
-      this
-    );
-  },
-
-  writeTail: function () {
-    this.tailFile = this.engine(
-      this.readFileAsString(join(this.sourceRoot(), 'html_tail.hbs')),
+      this.readFileAsString(join(this.sourceRoot(), 'html-head.hbs')),
       this
     );
   },
 
   app: function () {
     this.directory('app');
+    this.directory('tasks');
     this.mkdir('app/scripts');
     this.mkdir('app/styles');
     this.mkdir('app/images');
-    this.write('app/templates/partials/global/html_head.hbs', this.headFile);
-    this.write('app/templates/partials/global/html_tail.hbs', this.tailFile);
+    this.write('app/templates/partials/global/html-head.hbs', this.headFile);
     this.copy('main.js', 'app/scripts/main.js');
     this.template('main.scss', 'app/styles/main.scss');
   },
