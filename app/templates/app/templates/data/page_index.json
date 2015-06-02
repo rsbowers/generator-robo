@@ -1,0 +1,38 @@
+{
+  "jumbotron": {
+    "options": {
+      "className": ""
+    },
+    "title": "'Allo, Robo!",
+    "subtitle": "Always a pleasure scaffolding your apps...",
+    "cta": {
+      "cta_text": "Splendid!",
+      "cta_url": "#",
+      "cta_class": "btn btn-lg btn-success"
+    }
+  },
+  "teaser": {
+    "options": {
+      "className": ""
+    },
+    "sections": [
+      {
+        "title": "HTML5 Boilerplate",
+        "text": "HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites."
+      },
+      {
+        "title": "Sass",
+        "text": "Sass is a mature, stable, and powerful professional grade CSS extension language."
+      },
+      {
+        "title": "Bootstrap",
+        "text": "Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development."
+      },
+      {
+        "title": "Modernizr",
+        "text": "Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites."
+      }
+    ]
+  }
+}
+

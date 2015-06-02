@@ -1,0 +1,47 @@
+/* ===========================
+   site settings
+   =========================== */
+
+// = Colors
+// -----------------------------
+
+$primaryRed: #da291c;
+$primaryBlack: #000;
+$primaryWhite: #fff;
+$neutralGreyDarkest: #3f3d3d;
+$neutralGreyDark: #605d5d;
+$neutralGrey: #d0d0ce;
+$neutralGreyLight: #dddcd2;
+$neutralGreyLightest: #f2f3f4;
+$secondaryOrange: #e96613;
+$secondaryYellow: #f9ca1f;
+$secondaryGreen: #529144;
+$secondaryBlue: #2f60b2;
+$secondaryPurple: #783491;
+$secondaryGreenLight: #a1b21a;
+$secondaryBlueLight: #23b8f1;
+
+$primaryRedGradientDark: #c50026;
+$secondaryBlueGradientDark: #385999;
+$secondaryBlueLightGradientDark: #00a9c8;
+$secondaryGreenGradientDark: #04906f;
+$secondaryPurpleGradientDart: #662c7b;
+$secondaryOrangeGradientDark: #db6e29;
+
+$color-link-hover: darken($primaryRed, 10%);
+
+// = Z-index Management
+// -----------------------------
+
+$z-layers: (
+  "modal": 9001,
+  "modal-overlay": 9000,
+  "header": 1000,
+  "header-topnav":1005,
+  "search-results":300,
+  "media-overlay":299,
+  "above": 2,
+  "default": 1,
+  "below": -1,
+  "bottomless-pit": -9000
+);
