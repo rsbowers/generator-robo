@@ -22,7 +22,8 @@
     "grunt-cli": "^0.1.13",
     "mocha": "*",
     "underscore": "^1.6.0",
-    "change-case": "^2.3.0"
+    "change-case": "^2.3.0",
+    "groc": "^0.8.0"
   },
   "peerDependencies": {
     "generator-mocha": ">=0.1.0"

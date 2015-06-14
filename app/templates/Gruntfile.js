@@ -397,6 +397,17 @@ module.exports = function (grunt) {
       ]
     },
 
+    groc: {
+      javascript: [
+        "<%%= configs.app %>/assets/scripts/*.js",
+        "<%%= configs.app %>/templates/partials/**/*.hbs",
+        "README.md",
+      ],
+        options: {
+        "out": "dist/docs/"
+      }
+    },
+
     cms: {
       build: {
         dist: "<%%= config.dist %>",
@@ -490,7 +501,8 @@ module.exports = function (grunt) {
     'modernizr',
     'usemin',
     'htmlmin',
-    'cms'
+    'cms',
+    'groc'
   ]);
 
   grunt.registerTask('default', [

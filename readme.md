@@ -2,15 +2,6 @@
 
 > Yeoman generator using Grunt, Assemble.io, Handlebars, and Node - lets you quickly set up a project following best practices.
 
-## Project Overview
-
-Lorem Ipsum
-
-## Example project
-
-Generated with defaults: http://fullstack-demo.herokuapp.com/.
-
-Source code: https://github.com/DaftMonk/fullstack-demo
 
 ## Usage
 
@@ -93,6 +84,7 @@ The following packages are always installed by the [app](#app) generator:
 
 * jquery
 * modernizr
+* fontawesome
 
 These packages are installed optionally depending on your configuration:
 
@@ -105,52 +97,51 @@ All of these can be updated with `bower update` as new versions are released.
 Overview
 
     └── app
-        ├── fonts                 - All of our app specific components go in here
-        ├── images                - Custom assets: fonts, images, etc…
-        ├── scripts               - Our reusable components, non-specific to to our app
-        ├── styles                - Custom assets: fonts, images, etc…
-        │   ├── common            - Our apps server api
-        │   ├── components        - Our reusable or app-wide components
-        │   └── lib               - Server rendered views
-        └── templates             - Custom assets: fonts, images, etc…
-            ├── data              - Our apps server api
-            ├── layouts           - Our reusable or app-wide components
-            ├── pages             - Our reusable or app-wide components
-            └── partials          - Server rendered views
-                ├── components    - Our reusable or app-wide components
-                └── global        - Server rendered views
+        ├── fonts                 - FontAwesome is included by default
+        ├── images                
+        ├── scripts               - All js files
+        ├── styles                - Global Sass files
+        │   ├── common            - Individual Sass files for shared elements
+        │   ├── components        - Component Sass files
+        │   └── lib               - Vendor Sass files (fontawesome, etc.)
+        └── templates             - Assemble assets
+            ├── data              - JSON data files
+            ├── layouts           - Default page template
+            ├── pages             - Page-level hbs
+            └── partials          - Partial hbs
+                ├── components    - Component-level hbs
+                └── global        - Shared element hbs (i.e.non-Component partials)
 
 ## Project Structure (BUILD)
 
 Overview
 
     └── dist
-        ├── cms                                - All of our app specific components go in here
-        ├── images                             - Custom assets: fonts, images, etc…
-        ├── scripts                            - Our reusable components, non-specific to to our app
         ├── cms                                - Custom assets: fonts, images, etc…
-        │   ├── cms.global                     - Our apps server api
-        │   │   ├── css                        - Our apps server api
-        │   │   ├── fonts                      - Our apps server api
-        │   │   ├── images                     - Our apps server api
-        │   │   └── js                         - Server rendered views
-        │   └── cms.component                  - Server rendered views
-        │       ├── component.css              - Our apps server api
-        │       ├── component.hbs              - Our apps server api
-        │       ├── component.html             - Our apps server api
-        │       ├── component-preview.html     - Our apps server api
-        │       ├── component.js               - Our apps server api
-        │       └── component.json             - Server rendered views
-        └── site                               - Custom assets: fonts, images, etc…
-            ├── fonts                          - Our apps server api
-            ├── images                         - Our reusable or app-wide components
-            ├── scripts                        - Our reusable or app-wide components
-            └── styles                         - Server rendered views
+        │   ├── cms.global                     - Global assets (i.e. non-component)
+        │   │   ├── css                        - CSS, everything but the components
+        │   │   ├── fonts                      - Font assets
+        │   │   ├── images                     
+        │   │   └── js                         - Un-minified global js (i.e. non-component)
+        │   └── cms.component                  - Each component receives this structure
+        │       ├── component.css              - Component css
+        │       ├── component.hbs              - Component hbs
+        │       ├── component.html             - Raw component html
+        │       ├── component-preview.html     - Component html, preview mode (i.e. with css/js)
+        │       ├── component.js               - Component js
+        │       └── component.json             - Component JSON used by Assemble
+        └── site                               - Compiled Assemble static site
+            ├── fonts                          - Font assets
+            ├── images                         
+            ├── scripts                        - Minified js
+            │   ├── components.js              - All components js
+            │   ├── main.js                    - Global js
+            │   └── vendor.js                  - Vendor js
+            └── styles                         - Minified css
+                ├── main.css                   - Complete site css
+                └── vendor.css                 - Vendor css
 
 
-## Contribute
-
-Lore  Ipsum
 
 ## License
 
