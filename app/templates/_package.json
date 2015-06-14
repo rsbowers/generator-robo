@@ -28,7 +28,7 @@
     "time-grunt": "^1.1.0",
     "assemble": "^0.4.42",
     "fs-extra": "^0.18.3",
-    "groc": "^0.8.0"
+    "grunt-groc": "^0.6.0"
   },
   "engines": {
     "node": ">=0.10.0"

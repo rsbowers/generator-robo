@@ -399,9 +399,9 @@ module.exports = function (grunt) {
 
     groc: {
       javascript: [
-        "<%%= configs.app %>/assets/scripts/*.js",
-        "<%%= configs.app %>/templates/partials/**/*.hbs",
-        "README.md",
+        "<%%= config.app %>/scripts/*.js",
+        "<%%= config.app %>/templates/partials/**/*.hbs",
+        "readme.md"
       ],
         options: {
         "out": "dist/docs/"

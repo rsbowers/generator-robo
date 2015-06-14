@@ -126,6 +126,7 @@ module.exports = yeoman.generators.Base.extend({
     this.write('app/templates/layouts/cms-preview.hbs', this.cmsPreviewFile);
     this.copy('main.js', 'app/scripts/main.js');
     this.template('main.scss', 'app/styles/main.scss');
+    this.template('readme.md', 'readme.md');
   },
 
   install: function () {
