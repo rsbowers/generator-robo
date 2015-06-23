@@ -69,11 +69,15 @@ module.exports = function (grunt) {
       },
       gruntfile: {
         files: ['Gruntfile.js']
-      },
+      },<% if (includeSass) { %>
       sass: {
         files: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['sass:server', 'autoprefixer']
-      },
+      },<% } else { %>
+      less: {
+        files: ['<%%= config.app %>/styles/{,*/}*.less'],
+          tasks: ['less:server', 'autoprefixer']
+      },<% } %>
       styles: {
         files: ['<%%= config.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
@@ -170,8 +174,7 @@ module.exports = function (grunt) {
           specs: 'test/spec/{,*/}*.js'
         }
       }
-    },<% } %>
-
+    },<% } %><% if (includeSass) { %>
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
       options: {
@@ -195,7 +198,26 @@ module.exports = function (grunt) {
           ext: '.css'
         }]
       }
+    },<% } else {%>
+  // Compiles Sass to CSS and generates necessary files if requested
+  less: {
+    dist: {
+      options: {
+        paths: ['<%%= config.app %>/styles']
+      },
+      files: {
+        '<%%= config.tmp %>/styles/main.css': '<%%= config.app %>/styles/main.less'
+      }
     },
+    server: {
+      options: {
+        paths: ['<%%= config.app %>/styles']
+      },
+      files: {
+        '<%%= config.tmp %>/styles/main.css': '<%%= config.app %>/styles/main.less'
+      }
+    }
+  },<% } %>
 
     // Add vendor prefixed styles
     autoprefixer: {
@@ -218,11 +240,15 @@ module.exports = function (grunt) {
         ignorePath: /^<%= config.app %>\/|\.\.\//,
         src: ['<%%= config.tmp %>/*.html']<% if (includeBootstrap) { %>,
         exclude: ['bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js']<% } %>
-      },
+      },<% if (includeSass) { %>
       sass: {
         src: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
-      }
+      }<% } else { %>
+      less: {
+        src: ['<%%= config.app %>/styles/{,*/}*.{less}'],
+          ignorePath: /(\.\.\/){1,2}bower_components\//
+      }<% } %>
     },
 
     // Compile handlebar partials into static html
@@ -383,14 +409,22 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
+        <% if (includeSass) { %>
         'sass:server',
+        <% } else { %>
+        'less:server',
+        <% } %>
         'copy:styles'
       ],
       test: [
         'copy:styles'
       ],
       dist: [
+        <% if (includeSass) { %>
         'sass',
+        <% } else { %>
+        'less',
+        <% } %>
         'copy:styles',
         'imagemin',
         'svgmin'

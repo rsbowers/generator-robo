@@ -42,6 +42,7 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   createStylesheet: function () {
+    if (this.includeSass) {
     this.template('component.scss', 'app/styles/components/_'+this.componentname+'.scss');
     roboUtils.rewriteFile({
       file: 'app/styles/main.scss',
@@ -50,6 +51,16 @@ module.exports = yeoman.generators.Base.extend({
         "/*!==:cms:module:"+this.componentname+":==!*/"+"\n"+"@import 'components/"+this.componentname+"';"
       ]
     });
+    } else {
+      this.template('component.less', 'app/styles/components/_'+this.componentname+'.less');
+      roboUtils.rewriteFile({
+        file: 'app/styles/main.less',
+        needle: '//*=======yeoman component hook',
+        splicable: [
+          "/*!==:cms:module:"+this.componentname+":==!*/"+"\n"+"@import 'components/_"+this.componentname+"';"
+        ]
+      });
+    }
   },
 
   createJavascript: function () {

@@ -27,6 +27,19 @@ module.exports = yeoman.generators.Base.extend({
     }
 
     var prompts = [{
+      type: "list",
+      name: "includeSass",
+      message: "Sass or Less?",
+      choices: [ "Sass", "Less"],
+      filter: function( val ) {
+        var filterMap = {
+          'Sass': 'true',
+          'Less': 'false'
+        };
+
+        return filterMap[val];
+      }
+    },{
       type: 'checkbox',
       name: 'features',
       message: 'What more would you like?',
@@ -44,6 +57,7 @@ module.exports = yeoman.generators.Base.extend({
         return features && features.indexOf(feat) !== -1;
       }
 
+      this.includeSass = hasFeature('includeSass');
       this.includeBootstrap = hasFeature('includeBootstrap');
 
       done();
@@ -76,7 +90,7 @@ module.exports = yeoman.generators.Base.extend({
     };
 
     if (this.includeBootstrap) {
-      var bs = 'bootstrap-sass-official';
+      var bs = 'bootstrap' + (this.includeSass ? '-sass-official' : '');
       bower.dependencies[bs] = '~3.3.0';
     }
 
@@ -96,13 +110,6 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('editorconfig', '.editorconfig');
   },
 
-  /*
-  mainStylesheet: function () {
-    var css = 'main.scss';
-    this.template(css, 'app/styles/' + css);
-  },
-  */
-
   writeHead: function () {
     this.headFile = this.engine(
       this.readFileAsString(join(this.sourceRoot(), 'html-head.hbs')),
@@ -121,12 +128,19 @@ module.exports = yeoman.generators.Base.extend({
     this.directory('app');
     this.directory('tasks');
     this.mkdir('app/scripts');
-    this.mkdir('app/styles');
+    //this.mkdir('app/styles');
     this.write('app/templates/partials/global/html-head.hbs', this.headFile);
     this.write('app/templates/layouts/cms-preview.hbs', this.cmsPreviewFile);
     this.copy('main.js', 'app/scripts/main.js');
-    this.template('main.scss', 'app/styles/main.scss');
+    //this.template('main.scss', 'app/styles/main.scss');
     this.template('readme.md', 'readme.md');
+    if (this.includeSass) {
+      this.directory('sass_styles', 'app/styles');
+      this.template('main.scss', 'app/styles/main.scss');
+    } else {
+      this.directory('less_styles', 'app/styles');
+      this.template('main.less', 'app/styles/main.less');
+    }
   },
 
   install: function () {
