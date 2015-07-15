@@ -8,6 +8,7 @@ var changeCase = require('change-case');
 module.exports = yeoman.generators.Base.extend({
   constructor: function () {
     yeoman.generators.NamedBase.apply(this, arguments);
+    this.includeSass = this.config.get('includeSass');
   },
 
   askFor: function () {

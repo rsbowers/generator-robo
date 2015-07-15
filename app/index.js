@@ -33,8 +33,8 @@ module.exports = yeoman.generators.Base.extend({
       choices: [ "Sass", "Less"],
       filter: function( val ) {
         var filterMap = {
-          'Sass': 'true',
-          'Less': 'false'
+          'Sass': true,
+          'Less': false
         };
 
         return filterMap[val];
@@ -57,8 +57,10 @@ module.exports = yeoman.generators.Base.extend({
         return features && features.indexOf(feat) !== -1;
       }
 
-      this.includeSass = hasFeature('includeSass');
+      this.includeSass = answers.includeSass;
       this.includeBootstrap = hasFeature('includeBootstrap');
+
+      this.config.set('includeSass', this.includeSass);
 
       done();
     }.bind(this));
