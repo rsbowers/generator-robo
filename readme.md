@@ -1,5 +1,4 @@
 ![Robo Logo](https://github.com/rsbowers/generator-robo/blob/master/robo.jpg)
-
 # Static site builder generator & CMS component compiler
 
 > Yeoman generator using Grunt, Assemble.io, Handlebars, and Node - lets you quickly set up a project following best practices.
